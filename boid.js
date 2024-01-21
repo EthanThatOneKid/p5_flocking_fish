@@ -6,12 +6,14 @@
 class Boid {
   constructor() {
     this.position = createVector(random(width), random(height));
-    this.pposition = this.position.copy();
     this.velocity = p5.Vector.random2D();
     this.velocity.setMag(random(2, 4));
     this.acceleration = createVector();
     this.maxForce = 0.2;
     this.maxSpeed = 5;
+    this.speedScalar = 0.5;
+    this.rotationSpeedScalar = 0.1;
+    this.angle = createVector(atan2(this.velocity.y, this.velocity.x));
   }
 
   edges() {
@@ -120,18 +122,29 @@ class Boid {
   }
 
   update() {
-    this.pposition = this.position.copy();
-    this.position.add(this.velocity);
+    const scaledVelocity = this.velocity.copy();
+    scaledVelocity.mult(this.speedScalar);
+    this.position.add(scaledVelocity);
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxSpeed);
     this.acceleration.mult(0);
+
+    const heading = createVector(atan2(this.velocity.y, this.velocity.x));
+    this.angle.add(heading.sub(this.angle).mult(this.rotationSpeedScalar));
   }
 
   show() {
-    strokeWeight(6);
-    stroke(255);
-    point(this.position.x, this.position.y);
-    point(this.position.x, this.position.y);
-    line(this.position.x, this.position.y, this.pposition.x, this.pposition.y);
+    normalMaterial();
+    push();
+    translate(width * -0.5, 0, height * -0.5);
+    translate(this.position.x, 0, this.position.y);
+    rotateX(PI);
+    rotateY(this.angle.x);
+    push();
+    scale(8);
+    rotateY(angle + PI / 2);
+    model(fishModel);
+    pop();
+    pop();
   }
 }
