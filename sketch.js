@@ -8,6 +8,7 @@ const defaults = {
   cohesionCoeff: 1,
   separationCoeff: 1,
 };
+const topDown = false;
 
 // flockSize must be a multiple of 3.
 const flockSize = 90;
@@ -21,21 +22,29 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 400, WEBGL);
-  perspective(PI / 3.0, width / height, 0.1, 500);
-
-  debugMode();
+  createCanvas(600, 600, WEBGL);
+  noDebugMode();
 
   for (let i = 0; i < flockSize; i++) {
     flock.push(new Boid());
   }
 }
 
-let angle = 0;
-
 function draw() {
   background(0);
-  orbitControl(5);
+  camera(
+    0,
+    width * -0.5,
+    topDown ? 0.001 : height / 2 / tan(PI / 6),
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+  );
+
+  // orbitControl(5);
 
   for (let boid of flock) {
     boid.edges();

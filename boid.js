@@ -136,13 +136,14 @@ class Boid {
   show() {
     normalMaterial();
     push();
+    scale(-2);
     translate(width * -0.5, 0, height * -0.5);
     translate(this.position.x, 0, this.position.y);
     rotateX(PI);
     rotateY(this.angle.x);
     push();
-    scale(8);
-    rotateY(angle + PI / 2);
+    scale(10);
+    rotateY(0 + PI / 2);
     model(fishModel);
     pop();
     pop();
