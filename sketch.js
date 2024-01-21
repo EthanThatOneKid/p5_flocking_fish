@@ -13,10 +13,15 @@ const defaults = {
 
 const flock = [];
 
+let fishModel;
 let alignSlider, cohesionSlider, separationSlider;
 
+function preload() {
+  fishModel = loadModel("fish.obj");
+}
+
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(600, 400, WEBGL);
   if (debug) {
     alignSlider = createSlider(0, 2, 1.5, 0.1);
     cohesionSlider = createSlider(0, 2, 1, 0.1);
@@ -27,8 +32,15 @@ function setup() {
   }
 }
 
+let angle = 0;
+
 function draw() {
   background(0);
+  orbitControl(5);
+  // drawFish(0, 0);
+
+  push();
+  translate(width * -0.5, height * -0.5, 0);
   for (let boid of flock) {
     boid.edges();
     const alignmentCoeff =
@@ -64,4 +76,5 @@ function draw() {
       rect(i * w, height - h, w, h);
     }
   }
+  pop();
 }

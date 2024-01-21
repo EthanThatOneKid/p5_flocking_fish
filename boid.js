@@ -6,6 +6,7 @@
 class Boid {
   constructor() {
     this.position = createVector(random(width), random(height));
+    this.pposition = this.position.copy();
     this.velocity = p5.Vector.random2D();
     this.velocity.setMag(random(2, 4));
     this.acceleration = createVector();
@@ -119,6 +120,7 @@ class Boid {
   }
 
   update() {
+    this.pposition = this.position.copy();
     this.position.add(this.velocity);
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxSpeed);
@@ -129,5 +131,7 @@ class Boid {
     strokeWeight(6);
     stroke(255);
     point(this.position.x, this.position.y);
+    point(this.position.x, this.position.y);
+    line(this.position.x, this.position.y, this.pposition.x, this.pposition.y);
   }
 }
