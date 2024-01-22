@@ -11,7 +11,7 @@ class Boid {
     this.acceleration = createVector();
     this.maxForce = 0.2;
     this.maxSpeed = 5;
-    this.speedScalar = 0.5;
+    this.speedScalar = 0.25;
     this.rotationSpeedScalar = 0.1;
     this.angle = createVector(atan2(this.velocity.y, this.velocity.x));
   }
@@ -136,14 +136,14 @@ class Boid {
   show() {
     normalMaterial();
     push();
-    scale(-2);
+    scale(2);
     translate(width * -0.5, 0, height * -0.5);
     translate(this.position.x, 0, this.position.y);
     rotateX(PI);
     rotateY(this.angle.x);
     push();
-    scale(10);
-    rotateY(0 + PI / 2);
+    scale(3);
+    rotateY(PI / 2);
     model(fishModel);
     pop();
     pop();

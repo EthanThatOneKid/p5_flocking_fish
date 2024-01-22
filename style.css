@@ -1,7 +1,20 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
+  background-color: #000055;
 }
+
+body {
+  display: grid;
+  place-content: center;
+  gap: 1ch;
+  height: 100vh;
+}
+
 canvas {
   display: block;
+  margin: 0 auto;
+  border: 2px dashed white;
+  border-radius: 5px;
 }
